@@ -1,13 +1,5 @@
 // Assignment Code
 let generateBtn = document.querySelector("#generate");
-let passwordLength = window.prompt("How many charactes would you like your password to be?");
-passwordLength = passwordLength + 0;
-let passwordLowerCase = window.confirm("Would you like to use lower case letters?");
-let passwordUpperCase = window.confirm("Would you like to use upper case letters?");
-let passwordNumbers = window.confirm("Would you like to use numbers?");
-let passwordSplChars = window.confirm("Would you like to use special characters?");
-let userSelections = [""];
-
 
 // Write password to the #password input
 // Write password to the #password input
@@ -29,26 +21,47 @@ function generatePassword() {
   let numbersAvailable = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
   let symbolsAvailable = ["!", "@", "#", "$", "%", "^", "&", "*"];
   let finalPassword = "";
+  let userSelections = [""];
+
+  let passwordLength = window.prompt("How many charactes would you like your password to be?");
+  let passwordLowerCase = window.confirm("Would you like to use lower case letters?");
+  let passwordUpperCase = window.confirm("Would you like to use upper case letters?");
+  let passwordNumbers = window.confirm("Would you like to use numbers?");
+  let passwordSplChars = window.confirm("Would you like to use special characters?");
   
+if (passwordLowerCase === false && passwordUpperCase === false && passwordNumbers === false && passwordSplChars === false) {
+  do  {
+    window.alert("Please make a selection");
+    passwordLowerCase = window.confirm("Would you like to use lower case letters?");
+    passwordUpperCase = window.confirm("Would you like to use upper case letters?");
+    passwordNumbers = window.confirm("Would you like to use numbers?");
+    passwordSplChars = window.confirm("Would you like to use special characters?");
+  }  while (passwordLowerCase === false && passwordUpperCase === false && passwordNumbers === false && passwordSplChars === false);
+}
   if (passwordLength < 8 || passwordLength > 128) {
     window.alert("Please enter a number of 8 or more and 128 or less.")
   } else {
-    if (passwordLowerCase === true && passwordUpperCase === true && passwordNumbers === true && passwordSplChars === true) {
-      if (i = 0, passwordLength > i, i++) {
-        userSelections = userSelections.concat(lowerCaseLetters, upperCaseLetters, numbersAvailable, symbolsAvailable);
-        console.log()
-        let rgn = Math.floor(Math.random() * userSelections.length);
-        finalPassword = finalPassword + userSelections[rgn];
-        console.log(finalPassword);
-      }
-    } else if (passwordLowerCase === true && passwordUpperCase === true && passwordNumbers === true && passwordSplChars === false) {
-      userSelections.concat(lowerCaseLetters, upperCaseLetters, numbersAvailable)
+    if (passwordLowerCase === true) {
+      userSelections = userSelections.concat(lowerCaseLetters);
+    }
+    if (passwordUpperCase === true) {
+      userSelections = userSelections.concat(upperCaseLetters);
+    }
+    if (passwordNumbers === true) {
+      userSelections = userSelections.concat(numbersAvailable);
+    }
+    if (passwordSplChars === true) {
+      userSelections = userSelections.concat(symbolsAvailable);
     }
 
-    Math.floor(Math.random())
-  } 
+    for (let i = 0; i < passwordLength; i++) {
+      let rgn = Math.floor(Math.random() * userSelections.length);
+      finalPassword = finalPassword + userSelections[rgn];
+      console.log(finalPassword);
+    }
+  }
   return finalPassword;
-} 
+}
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
 
